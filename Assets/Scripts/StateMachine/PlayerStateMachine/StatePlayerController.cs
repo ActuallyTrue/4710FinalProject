@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using Rewired;
 
 public class StatePlayerController : MonoBehaviour
 {
+	//reference to gas bar in canvas
+	public Image gasBar;
+
 	private AudioManager sfxmanager;
 	public float trueMoveSpeed = 6f;
 	public float moveSpeed = 6f;
@@ -105,6 +109,9 @@ public class StatePlayerController : MonoBehaviour
 		camera.makeFocusArea(this);
 		gasTimer = maxGasTime;
 
+		//setting reference to gas bar image in canvas
+		gasBar = GameObject.Find("gas").GetComponent<Image>();
+
 	}
 
 	public void Update() {
@@ -117,6 +124,7 @@ public class StatePlayerController : MonoBehaviour
 			Debug.Log("Professor Mode Engaged!");
 		}
 		Debug.Log(gasTimer);
+
 	}
 
 	public float CalculatePlayerVelocity(float RBvelocity, Vector2 input, float moveSpeed, float velocityXSmoothing, float accelerationTimeGrounded, float accelerationTimeAirborne, bool isGrounded)
@@ -181,6 +189,7 @@ public class StatePlayerController : MonoBehaviour
 		{
 			moveSpeed = trueMoveSpeed * boostScale;
 			gasTimer -= Time.deltaTime;
+			updateGasBar();
 		}
 		else {
 			moveSpeed = trueMoveSpeed;
@@ -190,6 +199,7 @@ public class StatePlayerController : MonoBehaviour
 	public void addGas()
 	{
 		gasTimer = maxGasTime;
+		updateGasBar();
 	}
 
 	public void WallJump(Vector2 jumpVelocity)
@@ -344,4 +354,11 @@ public class StatePlayerController : MonoBehaviour
 		yield return new WaitForSeconds(invincibilityTime);
 		SetPlayerInvincibility(false);
 	} 
+
+
+	//Updates the gas bar image
+	public void updateGasBar()
+    {
+		gasBar.fillAmount = gasTimer / 10f;
+    }
 }
