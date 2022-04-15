@@ -189,7 +189,7 @@ public class StatePlayerController : MonoBehaviour
 		{
 			moveSpeed = trueMoveSpeed * boostScale;
 			gasTimer -= Time.deltaTime;
-			updateGasBar();
+			checkGasBarValid();
 		}
 		else {
 			moveSpeed = trueMoveSpeed;
@@ -199,7 +199,7 @@ public class StatePlayerController : MonoBehaviour
 	public void addGas()
 	{
 		gasTimer = maxGasTime;
-		updateGasBar();
+		checkGasBarValid();
 	}
 
 	public void WallJump(Vector2 jumpVelocity)
@@ -361,4 +361,19 @@ public class StatePlayerController : MonoBehaviour
     {
 		gasBar.fillAmount = gasTimer / 10f;
     }
+
+	/*
+	This method checks to see if gas bar UI has been added to scene. 
+	If it has it will call the function that updates the gas bar
+	If it hasnt it will just print a message instead.
+	 */
+	public void checkGasBarValid() { 
+		if (gasBar == null)
+        {
+			Debug.Log("WARNING: No gas bar canvas element added to level");
+        } else
+        {
+			updateGasBar();
+        }
+	}
 }
