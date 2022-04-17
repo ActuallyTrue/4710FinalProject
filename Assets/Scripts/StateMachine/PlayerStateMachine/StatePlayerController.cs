@@ -218,6 +218,7 @@ public class StatePlayerController : MonoBehaviour
 	public void addGas()
 	{
 		gasTimer = maxGasTime;
+		sfxmanager.sfx[9].Play();
 		checkGasBarValid();
 	}
 
