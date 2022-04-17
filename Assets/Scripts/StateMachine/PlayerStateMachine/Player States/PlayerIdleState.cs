@@ -51,12 +51,12 @@ public class PlayerIdleState : PlayerState {
 			{
 			    if (horizontalMovement != 0)
 			    {
-			        stateInput.anim.Play("Player_run");
+			        stateInput.anim.Play("Player_Run");
 			        stateInput.spriteRenderer.flipX = horizontalMovement == -1;
 			    }
 			    else
 			    {
-			        stateInput.anim.Play("Player_idle");
+			        stateInput.anim.Play("Player_Idle");
 			    }
 			}
 			stateInput.lastXDir = horizontalMovement;
