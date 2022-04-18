@@ -10,6 +10,9 @@ public class StatePlayerController : MonoBehaviour
 	//reference to gas bar in canvas
 	public Image gasBar;
 
+	//reference to gas particle system
+	public ParticleSystem gasTrail;
+
 	private AudioManager sfxmanager;
 	public float trueMoveSpeed = 6f;
 	public float moveSpeed = 6f;
@@ -109,6 +112,9 @@ public class StatePlayerController : MonoBehaviour
 		camera.makeFocusArea(this);
 		gasTimer = maxGasTime;
 
+		//get gas trail component
+		gasTrail = GetComponent<ParticleSystem>();
+
 		//setting reference to gas bar image in canvas
 		gasBar = GameObject.Find("gas").GetComponent<Image>();
 
@@ -124,6 +130,17 @@ public class StatePlayerController : MonoBehaviour
 			Debug.Log("Professor Mode Engaged!");
 		}
 		Debug.Log(gasTimer);
+
+
+		//Temporary fix:: if were grounded stop audio and partle effect without this if you hold space while falling to the ground check ground stops getting called and sound
+		//and particle system will never turn off
+		if (checkIfGrounded())
+		{
+			stopGasTrail();
+		}
+
+
+	
 
 	}
 
@@ -189,16 +206,19 @@ public class StatePlayerController : MonoBehaviour
 		{
 			moveSpeed = trueMoveSpeed * boostScale;
 			gasTimer -= Time.deltaTime;
+			playGasTrail();
 			checkGasBarValid();
 		}
 		else {
 			moveSpeed = trueMoveSpeed;
+			stopGasTrail();
 		}
 	}
 
 	public void addGas()
 	{
 		gasTimer = maxGasTime;
+		sfxmanager.sfx[9].Play();
 		checkGasBarValid();
 	}
 
@@ -374,6 +394,35 @@ public class StatePlayerController : MonoBehaviour
         } else
         {
 			updateGasBar();
+			
         }
 	}
+
+	//Plays gas trail and sound if not playing already
+	public void playGasTrail()
+    {
+		if (gasTrail != null)
+        {
+			if (!gasTrail.isEmitting && !sfxmanager.sfx[8].isPlaying && !checkIfGrounded())
+			{
+				sfxmanager.sfx[8].Play();
+				gasTrail.Play();
+			}
+
+        }
+    }
+
+	//Stops gas trail and sfx if out of gas or no longer pressing space
+	public void stopGasTrail() {
+		if (gasTrail != null)
+		{
+			if (gasTrail.isEmitting && sfxmanager.sfx[8].isPlaying)
+			{
+				gasTrail.Stop();
+				sfxmanager.sfx[8].Stop();
+			}
+
+		}
+	}
+
 }
