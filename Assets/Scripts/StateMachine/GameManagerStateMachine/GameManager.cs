@@ -8,7 +8,7 @@ public class GameManager : Character<GameManager, GameManagerState, GameManagerS
     {
         stateInput.stateMachine = this;
         stateInput.variableHolder = GetComponent<GameManagerVariableHolder>();
-        stateInput.spawnWalls = stateInput.variableHolder.spawnWalls;
+        //stateInput.spawnWalls = stateInput.variableHolder.spawnWalls;
         stateInput.gameManagerController = GetComponent<GameManagerController>();
         stateInput.winCanvas = stateInput.variableHolder.winCanvas;
         //stateInput.winCanvas.SetActive(false);
@@ -41,7 +41,7 @@ public class GameManagerStateInput : CharacterStateInput
     public GameManagerController gameManagerController;
     public GameManager stateMachine;
     public GameManagerVariableHolder variableHolder;
-    public GameObject spawnWalls;
+    //public GameObject spawnWalls;
     public int runNum;
     public int currentRun = 0;
 

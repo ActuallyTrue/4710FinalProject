@@ -201,7 +201,7 @@ public class StatePlayerController : MonoBehaviour
 
 	public void checkGas(bool button)
 	{
-		if (button && gasTimer >= 0)
+		if (button && gasTimer >= 0 && checkIfGrounded() == false)
 		{
 			moveSpeed = trueMoveSpeed * boostScale;
 			

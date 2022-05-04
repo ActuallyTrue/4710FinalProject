@@ -11,7 +11,7 @@ public class GasPickup : MonoBehaviour
             if (playerController != null)
             {
                 playerController.addGas();
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
             }
         }
     }

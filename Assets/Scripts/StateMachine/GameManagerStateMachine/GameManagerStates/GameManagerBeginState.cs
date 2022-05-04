@@ -11,7 +11,7 @@ public class GameManagerBeginState : GameManagerState {
 
     public override void Enter(GameManagerStateInput stateInput, CharacterStateTransitionInfo transitionInfo = null)
     {
-        stateInput.spawnWalls.SetActive(true);
+        //stateInput.spawnWalls.SetActive(true);
         timer = countDownTime;
         stateInput.currentRun++;
 
