@@ -129,7 +129,6 @@ public class StatePlayerController : MonoBehaviour
 			professorMode = !professorMode;
 			Debug.Log("Professor Mode Engaged!");
 		}
-		Debug.Log(gasTimer);
 
 
 		//Temporary fix:: if were grounded stop audio and partle effect without this if you hold space while falling to the ground check ground stops getting called and sound
@@ -205,7 +204,12 @@ public class StatePlayerController : MonoBehaviour
 		if (button && gasTimer >= 0)
 		{
 			moveSpeed = trueMoveSpeed * boostScale;
-			gasTimer -= Time.deltaTime;
+			
+			if (professorMode == false)
+			{
+				gasTimer -= Time.deltaTime;
+			}
+
 			playGasTrail();
 			checkGasBarValid();
 		}

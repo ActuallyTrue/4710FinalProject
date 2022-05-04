@@ -10,7 +10,7 @@ public class GoalController : MonoBehaviour
     public string levelToLoad;
 
     void Start() {
-        
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void OnTriggerEnter2D(Collider2D collider) {
